@@ -73,8 +73,10 @@ factors::
 
      python -m random -c "print(random.randint(10))"
 
-An example demonstrating these points::
+An example demonstrating these points:
   
+.. code-block:: bash
+
     # convert a date to a unix timestamp (using strptime)
     ruby -rdate -pe '$_=Date.strptime($_, "%Y-%m-%d").strftime("%s")'
     perl -MTime::Piece -pe '$_=Time::Piece->strptime($_, "%Y-%m-%d\n")->epoch()'

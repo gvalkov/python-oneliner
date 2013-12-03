@@ -10,6 +10,8 @@ import argparse
 from sys import stderr, stdout, stdin
 
 
+__version__ = '0.1.0'
+
 usage = r'''\
 Usage: {} [flags] [-m modules] [-e <expr>] [-s <stmt>] <path> [<path>...]
 
@@ -98,9 +100,10 @@ def parse_args(argv, fh_in):
     '''Parse arguments and do a basic sanity check.'''
     parser = argparse.ArgumentParser(add_help=False)
     o = parser.add_argument
+    version = '%(prog)s version {}'.format(__version__)
 
     o('-h', '--help', action='store_true')
-    o('-v', '--version', action='version', version='%(prog)s version 0.1.0')
+    o('-v', '--version', action='version', version=version)
     o('-n', action='store_true', dest='readloop')
     o('-p', action='store_true', dest='printloop')
     o('-l', action='store_true', dest='chomp')

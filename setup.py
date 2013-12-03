@@ -5,6 +5,7 @@ from os.path import abspath, dirname, join
 from sys import version_info
 from setuptools import setup
 
+from oneliner import __version__
 
 here = abspath(dirname(__file__))
 
@@ -27,8 +28,8 @@ console_scripts = \
 
 kw = {
     'name'              : 'oneliner',
-    'version'           : '0.1.0',
-    'description'       : 'module for writing practical python one-liners',
+    'version'           : __version__,
+    'description'       : 'practical python one-liners',
     'long_description'  : open(join(here, 'README.rst')).read(),
     'author'            : 'Georgi Valkov',
     'author_email'      : 'georgi.t.valkov@gmail.com',

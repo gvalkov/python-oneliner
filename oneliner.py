@@ -304,7 +304,7 @@ def nloop(code_expr, code_stmt, opts, ctx, fh_in, fh_out):
         code_objects = code_stmt
         isexpr = False
 
-    for line in fh_in:
+    for nr, line in enumerate(fh_in):
         line = line.strip(os.linesep) if opts.chomp else line
         words = [i.strip() for i in re_delim.split(line) if i]
         words = defaultlist(words, default='')

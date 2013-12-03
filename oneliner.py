@@ -10,7 +10,7 @@ import argparse
 from sys import stderr, stdout, stdin
 
 
-usage = '''\
+usage = r'''\
 Usage: {} [flags] [-m modules] [-e <expr>] [-s <stmt>] <path> [<path>...]
 
 Options:
@@ -45,8 +45,8 @@ Execution Model:
   given, the value of the 'line' variable is written to stdout at the
   end of each iteration.
 
-    echo example | pyl -ns 'print(line.upper())' => EXAMPLE
-    echo example | pyl -ps 'line=line.upper()' => EXAMPLE
+    echo example | pyl -ns 'print(line.upper())' => EXAMPLE\n\n
+    echo example | pyl -ps 'line=line.upper()'   => EXAMPLE\n
 
   The '-e' and '-s' options cannot be mixed.
 

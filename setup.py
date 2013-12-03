@@ -26,23 +26,20 @@ console_scripts = \
     ['pyl-{0.major}.{0.minor} = oneliner:main'.format(version_info)]
 
 kw = {
-    'name'                 : 'oneliner',
-    'version'              : '0.1.0',
-
-    'description'          : 'module for writing practical python one-liners',
-    'long_description'     : open(join(here, 'README.rst')).read(),
-
-    'author'               : 'Georgi Valkov',
-    'author_email'         : 'georgi.t.valkov@gmail.com',
-    'license'              : 'New BSD License',
-    'url'                  : 'https://github.com/gvalkov/python-oneliner',
-
-    'keywords'             : 'oneliner one-liner',
-    'classifiers'          : classifiers,
-
-    'py_modules'           : ['oneliner'],
-    'entry_points'         : {'console_scripts' : console_scripts},
-    'zip_safe'             : True,
+    'name'              : 'oneliner',
+    'version'           : '0.1.0',
+    'description'       : 'module for writing practical python one-liners',
+    'long_description'  : open(join(here, 'README.rst')).read(),
+    'author'            : 'Georgi Valkov',
+    'author_email'      : 'georgi.t.valkov@gmail.com',
+    'license'           : 'Revised BSD License',
+    'url'               : 'https://github.com/gvalkov/python-oneliner',
+    'keywords'          : 'oneliner one-liner',
+    'classifiers'       : classifiers,
+    'py_modules'        : ['oneliner'],
+    'entry_points'      : {'console_scripts' : console_scripts},
+    'zip_safe'          : True,
 }
 
-setup(**kw)
+if __name__ == '__main__':
+    setup(**kw)

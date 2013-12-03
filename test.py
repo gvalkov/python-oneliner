@@ -1,6 +1,15 @@
 from unittest import TestCase, main as unitmain
 from oneliner import *
 
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+
+def stdinstr(s):
+    fh = StringIO(s); fh.isatty = lambda: False ; return fh
+
 
 class TestModuleFinder(TestCase):
     tests = {
@@ -107,6 +116,23 @@ class TestDefaultList(TestCase):
         l = defaultlist([1,2,3], default=True)
         self.assertEqual(l[10], True)
 
+
+class TestFunctional(TestCase):
+    tests_single = {
+        'EXAMPLE':   ( ['-ne', 'line.upper()'], 'example' ),
+        'EXAMPLE\n': ( ['-ns', 'print(line.upper())'], 'example' ),
+        # will fail in different time zones
+        '1355256353 => 2012-12-11 21:05:53\n': (
+            ['-j', ' => ', '-line' '_, datetime.datetime.fromtimestamp(int(_))'], '1355256353'),
+    }
+
+    def test(self):
+        '''Test if the examples from the documentation work.'''
+
+        for expect, args in self.tests_single.items():
+            res = StringIO()
+            main(args[0], stdinstr(args[1]), fh_out=res)
+            self.assertEqual(res.getvalue(), expect)
 
 if __name__ == '__main__':
     unitmain()

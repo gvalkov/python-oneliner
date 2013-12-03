@@ -132,7 +132,7 @@ def parse_args(argv):
             raise err('error: no expression or statement specified')
     except Exception as e:
         print(usage, file=stderr)
-        print('error: %s' % e.message)
+        print('error: %s' % str(e))
         sys.exit(1)
 
     return opts
@@ -304,7 +304,7 @@ def nloop(code_expr, code_stmt, opts, ctx, fh_in, fh_out):
         code_objects = code_stmt
         isexpr = False
 
-    for nr, line in enumerate(fh_in):
+    for line in fh_in:
         line = line.strip(os.linesep) if opts.chomp else line
         words = [i.strip() for i in re_delim.split(line) if i]
         words = defaultlist(words, default='')

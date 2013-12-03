@@ -272,6 +272,7 @@ def main(argv=sys.argv[1:], fh_in=stdin, fh_out=stdout):
     stmt, expr, mods = opts.stmt, opts.expr, opts.mods
     _main(expr, stmt, mods, opts, fh_in, fh_out)
 
+
 def _main(expr, stmt, mods, opts, fh_in, fh_out):
     if opts.autoimports:
         from itertools import chain
@@ -280,6 +281,7 @@ def _main(expr, stmt, mods, opts, fh_in, fh_out):
 
     mods.extend(provided_modules)
     ctx = parse_import_modules(mods)
+    ctx['sys'].stdout = fh_out
 
     try:
         code_expr = [compile(i, '<expr>', 'eval') for i in expr if i]

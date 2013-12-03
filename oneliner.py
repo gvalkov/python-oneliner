@@ -225,18 +225,18 @@ def import_modules(imports):
         g, l = {}, {}
 
         if not names:
-            ctx[module_local] = safe_import(module, g, l, [], -1)
+            ctx[module_local] = safe_import(module, g, l, [], 0)
             continue
 
         tnames = [i[0] for i in names]
 
         if '*' not in tnames:
-            tmp = safe_import(module, g, l, tnames, -1)
+            tmp = safe_import(module, g, l, tnames, 0)
             for name, name_local in names:
                 name_local = name_local if name_local else name
                 ctx[name_local] = getattr(tmp, name)
         else:
-            tmp = safe_import(module, g, l, ['*'], -1)
+            tmp = safe_import(module, g, l, ['*'], 0)
             ctx.update(tmp.__dict__)
 
     return ctx

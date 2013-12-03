@@ -94,7 +94,7 @@ class defaultlist(list):
             return self._default
 
 
-def parse_args(argv):
+def parse_args(argv, fh_in):
     '''Parse arguments and do a basic sanity check.'''
     parser = argparse.ArgumentParser(add_help=False)
     o = parser.add_argument
@@ -122,9 +122,9 @@ def parse_args(argv):
 
     try:
         err = Exception
-        if stdin.isatty() and not opts.inputs:
+        if fh_in.isatty() and not opts.inputs:
             raise err('no input files or input on stdin')
-        if not stdin.isatty() and opts.inputs:
+        if not fh_in.isatty() and opts.inputs:
             raise err('multiple input sources (stdin and command line)')
         if opts.expr and opts.stmt:
             raise err('cannot use expression and statement oneliners at the same time')
@@ -263,11 +263,7 @@ def modules_in_code(expr):
 
 
 def main(argv=sys.argv[1:], fh_in=stdin, fh_out=stdout):
-    opts = parse_args(argv)
-
-    if isinstance(fh_in, str):
-        from StringIO import StringIO
-        fh_in = StringIO(fh_in)
+    opts = parse_args(argv, fh_in=fh_in)
 
     if fh_in.isatty() and opts.inputs:
         from fileinput import FileInput
@@ -275,7 +271,6 @@ def main(argv=sys.argv[1:], fh_in=stdin, fh_out=stdout):
 
     stmt, expr, mods = opts.stmt, opts.expr, opts.mods
     _main(expr, stmt, mods, opts, fh_in, fh_out)
-
 
 def _main(expr, stmt, mods, opts, fh_in, fh_out):
     if opts.autoimports:

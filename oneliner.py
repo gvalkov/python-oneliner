@@ -57,7 +57,7 @@ Execution Model:
 Importing Modules:
   The '-m' option imports modules into the global namespace of each
   evaluated expression or statement. The '-m' option can be specified
-  multiple times. Examples:
+  multiple times. For example:
 
     -m os,sys,re,pickle => import os, sys, re, pickle
     -m os -m sys -m re  => import os, sys, re
@@ -140,7 +140,7 @@ def parse_args(argv):
 
 def parse_modules_split(line):
     '''Split a comma separated list of module names, excluding commas
-       between brackets. Example:
+       between brackets. For example:
 
          'sys,os,re' => ['sys', 'os', 're']
          'sys,os.path.[exists,join],re' => ['sys', 'os.path.[exists,join]', 're']
@@ -172,7 +172,7 @@ def parse_modules_split(line):
 
 
 def parse_modules(line):
-    '''Parse shorthand import statements. Example:
+    '''Parse shorthand import statements. For example:
 
          'os.path.[exists=e,join=j]'
          => [(('os.path', ''), [('exists', 'e'), ('join', 'j')])]

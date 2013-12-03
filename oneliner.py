@@ -97,21 +97,21 @@ class defaultlist(list):
 def parse_args(argv):
     '''Parse arguments and do a basic sanity check.'''
     parser = argparse.ArgumentParser(add_help=False)
-    addarg = parser.add_argument
+    o = parser.add_argument
 
-    addarg('-h', '--help', action='store_true')
-    addarg('-v', '--version', action='version', version='%(prog)s version 0.1.0')
-    addarg('-n', action='store_true', dest='readloop')
-    addarg('-p', action='store_true', dest='printloop')
-    addarg('-l', action='store_true', dest='chomp')
-    addarg('-i', action='store_true', dest='autoimports')
-    addarg('-d', default=r'\s+', dest='fssep')
-    addarg('-j', nargs='?', dest='joinsep', default='', const=' ')
-    addarg('-m', nargs='*', dest='mods', default=[])
-    addarg('-e', nargs=1, dest='expr', default=[])
-    addarg('-s', nargs=1, dest='stmt', default=[])
-    addarg('--debug', action='store_true')
-    addarg('inputs',  nargs='*', type=argparse.FileType('r'))
+    o('-h', '--help', action='store_true')
+    o('-v', '--version', action='version', version='%(prog)s version 0.1.0')
+    o('-n', action='store_true', dest='readloop')
+    o('-p', action='store_true', dest='printloop')
+    o('-l', action='store_true', dest='chomp')
+    o('-i', action='store_true', dest='autoimports')
+    o('-d', default=r'\s+', dest='fssep')
+    o('-j', nargs='?', dest='joinsep', default='', const=' ')
+    o('-m', nargs='*', dest='mods', default=[])
+    o('-e', nargs=1, dest='expr', default=[])
+    o('-s', nargs=1, dest='stmt', default=[])
+    o('--debug', action='store_true')
+    o('inputs',  nargs='*', type=argparse.FileType('r'))
 
     parser.print_usage = lambda file: print(usage, file=file)
     opts = parser.parse_args(argv)

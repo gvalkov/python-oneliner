@@ -311,14 +311,14 @@ def nloop(code_expr, code_stmt, opts, ctx, fh_in, fh_out):
 
         eval_globals = ctx.copy()
         eval_locals = {
-                'line': line,
-                'words': words,
-                'NR': nr + 1,
-                'L': line,
-                '_': line,
-                'W': words,
-                'FN': fh_in.filename() if hasfn else '<stdin>',
-                }
+            'line': line,
+            'words': words,
+            'NR': nr + 1,
+            'L': line,
+            '_': line,
+            'W': words,
+            'FN': fh_in.filename() if hasfn else '<stdin>',
+        }
 
         for i in code_objects:
             res = eval(i, eval_globals, eval_locals)

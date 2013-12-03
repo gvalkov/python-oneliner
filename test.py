@@ -4,9 +4,9 @@ from oneliner import *
 
 class TestModuleFinder(TestCase):
     tests = {
-        'write(sys.version)'         : ['sys'],
-        'abc.write sys.version.none' : ['abc', 'sys'],
-        ';sys.stdout.write();'       : ['sys'],
+        'write(sys.version)':         ['sys'],
+        'abc.write sys.version.none': ['abc', 'sys'],
+        ';sys.stdout.write();':       ['sys'],
         }
 
     def test(self):
@@ -23,20 +23,20 @@ class TestModuleParser(TestCase):
 
     def test_simple_split(self):
         tests = {
-            'os,sys,re'    : ['os', 'sys', 're'],
-            'os, sys, re'  : ['os', 'sys', 're'],
-            'os,sys, re,'  : ['os', 'sys', 're'],
-            'os.path,sys,' : ['os.path', 'sys'],
+            'os,sys,re':    ['os', 'sys', 're'],
+            'os, sys, re':  ['os', 'sys', 're'],
+            'os,sys, re,':  ['os', 'sys', 're'],
+            'os.path,sys,': ['os.path', 'sys'],
             }
 
         self.dotests(tests, parse_modules_split)
 
     def test_brackets_split(self):
         tests = {
-            'os.path.[exists]'     : ['os.path.[exists]'],
+            'os.path.[exists]':      ['os.path.[exists]'],
             'os.path.[exists,join]': ['os.path.[exists,join]'],
-            'sys,os.path.[exists]' : ['sys', 'os.path.[exists]'],
-            'sys,os.path.[*]'      : ['sys', 'os.path.[*]'],
+            'sys,os.path.[exists]':  ['sys', 'os.path.[exists]'],
+            'sys,os.path.[*]':       ['sys', 'os.path.[*]'],
             'sys,os.path.[exists,join],re' : ['sys', 'os.path.[exists,join]', 're'],
             }
 
@@ -44,16 +44,16 @@ class TestModuleParser(TestCase):
 
     def test_simple_locals(self):
         tests = {
-            'subprocess'     : [( ('subprocess', ''), [] )],
-            'subprocess=sub' : [( ('subprocess', 'sub'), [] )],
-            'sys=s,os=o'     : [( ('sys', 's'), [] ), ( ('os', 'o'), [] )],
+            'subprocess':     [( ('subprocess', ''), [] )],
+            'subprocess=sub': [( ('subprocess', 'sub'), [] )],
+            'sys=s,os=o':     [( ('sys', 's'), [] ), ( ('os', 'o'), [] )],
             }
 
         self.dotests(tests, parse_modules)
 
     def test_brackets(self):
         tests = {
-            'os.path.[exists]' :
+            'os.path.[exists]':
                 [( ('os.path', ""), [('exists', '')])],
             'os.path.[exists,join]':
                 [( ('os.path', ""), [('exists', ''), ('join', '')])],
@@ -74,20 +74,20 @@ class TestModuleImport(TestCase):
 
     def test_simple(self):
         tests = {
-            'sys,os,re' : ['os', 're', 'sys'],
-            'subprocess=sub' : ['sub'],
-            'subprocess=sub,sys' : ['sub', 'sys'],
-            'sys=a,os=b,re=c' : ['a', 'b', 'c'],
+            'sys,os,re': ['os', 're', 'sys'],
+            'subprocess=sub': ['sub'],
+            'subprocess=sub,sys': ['sub', 'sys'],
+            'sys=a,os=b,re=c': ['a', 'b', 'c'],
             }
 
         self.dotests(tests, import_modules)
 
     def test_brackets(self):
         tests = {
-            'os.path.[exists]' : ['exists'],
-            'sys=s,os.path.[exists]' : ['exists', 's'],
-            'os.path.[exists,join]' : ['exists', 'join'],
-            'os.path.[exists=e,join=j]' : ['e', 'j'],
+            'os.path.[exists]': ['exists'],
+            'sys=s,os.path.[exists]': ['exists', 's'],
+            'os.path.[exists,join]': ['exists', 'join'],
+            'os.path.[exists=e,join=j]': ['e', 'j'],
             }
 
         self.dotests(tests, import_modules)

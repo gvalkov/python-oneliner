@@ -77,7 +77,7 @@ Importing Modules:
 
 '''.format('pyl' if 'pyl' in sys.argv[0] else 'python -m oneliner')
 
-# modules that will be made available to commands by default
+# modules that are available to one-liners by default
 provided_modules = ('os', 're', 'sys',)
 
 

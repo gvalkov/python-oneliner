@@ -98,5 +98,15 @@ class TestModuleImport(TestCase):
             self.assertTrue(i in res)
 
 
+class TestDefaultList(TestCase):
+    def test_access(self):
+        l = defaultlist([1,2,3])
+        self.assertEqual(l[0], 1)
+        self.assertEqual(l[10], None)
+
+        l = defaultlist([1,2,3], default=True)
+        self.assertEqual(l[10], True)
+
+
 if __name__ == '__main__':
     unitmain()

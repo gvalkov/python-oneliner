@@ -139,12 +139,17 @@ def parse_args(argv):
 
 
 def parse_modules_split(line):
-    '''Split a comma separated list of module names, excluding commas
-       between brackets. For example:
-
-         'sys,os,re' => ['sys', 'os', 're']
-         'sys,os.path.[exists,join],re' => ['sys', 'os.path.[exists,join]', 're']
     '''
+    Split a comma separated list of module names, excluding commas
+    between brackets.
+
+    >>> parse_modules_split('sys,os,re')
+    ['sys', 'os', 're']
+
+    >>> parse_modules_split('sys,os.path.[exists,join],re')
+    ['sys', 'os.path.[exists,join]', 're']
+    '''
+
     if '[' not in line:
         # os,sys,re -> ['os', 'sys', 're']
         mods = [i for i in re.split(r'[,\s]', line) if i]
@@ -172,17 +177,18 @@ def parse_modules_split(line):
 
 
 def parse_modules(line):
-    '''Parse shorthand import statements. For example:
+    '''Parse shorthand import statements.
 
-         'os.path.[exists=e,join=j]'
-         => [(('os.path', ''), [('exists', 'e'), ('join', 'j')])]
+    >>> parse_modules('os.path.[exists=e,join=j]')
+    [(('os.path', ''), [('exists', 'e'), ('join', 'j')])]
 
-         'os.path.[exists]'
-         => [(('os.path', ""), [('exists', '')])]
+    >>> parse_modules('os.path.[exists]')
+    [(('os.path', ""), [('exists', '')])]
 
-         'subprocess=sub', 'sys'
-         => [(('subprocess', 'sub'), []), (('sys', ''), [])]
+    >>> parse_modules('subprocess=sub', 'sys')
+    [(('subprocess', 'sub'), []), (('sys', ''), [])]
     '''
+
     mods = parse_modules_split(line)
     imports = []
 

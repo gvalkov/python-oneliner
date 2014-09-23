@@ -12,8 +12,12 @@ from sys import stderr, stdout, stdin
 
 __version__ = '0.2.0'
 
-usage = r'''\
-Usage: {} [flags] [-m modules] [-e <expr>] [-s <stmt>] <path> [<path>...]
+usage_short \
+    = 'Usage: %s [-hvnpdijl] [-m mod] [-e expr] [-s stmt] <path> [<path>...]' \
+    % ('pyl' if 'pyl' in sys.argv[0] else 'python -m oneliner')
+
+usage = '''\
+%s
 
 Options:
   -h       show this help message and exit
@@ -31,8 +35,8 @@ Options:
 
 Execution Model:
   When given the '-n' or '-p' flags, oneliner evaluates expressions or
-  statements for each line of stdin. The local namespace of your code
-  includes the following variables:
+  statements on each line of stdin. The local namespace of your code
+  will include the following variables:
 
     line L _ => current input line
     words W  => re.split(delimiter, line) (see '-d' option)
@@ -47,8 +51,8 @@ Execution Model:
   given, the value of the 'line' variable is written to stdout at the
   end of each iteration.
 
-    echo example | pyl -ns 'print(line.upper())' => EXAMPLE\n\n
-    echo example | pyl -ps 'line=line.upper()'   => EXAMPLE\n
+    echo example | pyl -ns 'print(line.upper())' => EXAMPLE\\n\\n
+    echo example | pyl -ps 'line=line.upper()'   => EXAMPLE\\n
 
   The '-e' and '-s' options cannot be mixed.
 
@@ -76,8 +80,8 @@ Importing Modules:
   'time' module will be imported automatically:
 
     yes | pyl -j -line '(time.time(), line)'
+''' % usage_short
 
-'''.format('pyl' if 'pyl' in sys.argv[0] else 'python -m oneliner')
 
 # modules that are available to one-liners by default
 provided_modules = ('os', 're', 'sys',)
@@ -134,8 +138,8 @@ def parse_args(argv, fh_in):
         if not opts.expr and not opts.stmt:
             raise err('error: no expression or statement specified')
     except Exception as e:
-        print(usage, file=stderr)
-        print('error: %s' % str(e))
+        print(usage_short, file=stderr)
+        print('error: %s' % str(e), file=stderr)
         sys.exit(1)
 
     return opts

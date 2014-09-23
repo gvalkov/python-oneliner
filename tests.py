@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8; -*-
+
 from unittest import TestCase, main as unitmain
 from oneliner import *
 
@@ -133,6 +136,7 @@ class TestFunctional(TestCase):
             res = StringIO()
             main(args[0], stdinstr(args[1]), fh_out=res)
             self.assertEqual(res.getvalue(), expect)
+
 
 if __name__ == '__main__':
     unitmain()

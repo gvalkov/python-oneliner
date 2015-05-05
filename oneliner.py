@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8; -*-
 
 from __future__ import print_function
 
@@ -12,9 +13,8 @@ from sys import stderr, stdout, stdin
 
 __version__ = '0.2.0'
 
-usage_short \
-    = 'Usage: %s [-hvnpdijl] [-m mod] [-e expr] [-s stmt] <path> [<path>...]' \
-    % ('pyl' if 'pyl' in sys.argv[0] else 'python -m oneliner')
+usage_short = 'Usage: {} [-hvnpdijl] [-m mod] [-e expr] [-s stmt] <path> [<path> ...]'
+usage_short = usage_short.format('pyl' if 'pyl' in sys.argv[0] else 'python -m oneliner')
 
 usage = '''\
 %s
@@ -34,8 +34,8 @@ Options:
   --debug  enable debugging
 
 Execution Model:
-  When given the '-n' or '-p' flags, oneliner evaluates expressions or
-  statements on each line of stdin. The local namespace of your code
+  With the '-n' or '-p' flags, oneliner evaluates an expression or
+  statement on every line of input. The local namespace of your code
   will include the following variables:
 
     line L _ => current input line
@@ -56,9 +56,9 @@ Execution Model:
 
   The '-e' and '-s' options cannot be mixed.
 
-  If the '-j' flag is set, tuples and lists returned by expressions
-  will be joined by a single space. The delimiter can be configured by
-  passing a value to '-j'.
+  If the '-j' flag is used, tuples and lists returned by expressions
+  will be joined by a single space. Passing a value to the '-j' option
+  sets the separator between elemnts.
 
 Importing Modules:
   The '-m' option imports modules into the global namespace of each
@@ -83,8 +83,8 @@ Importing Modules:
 ''' % usage_short
 
 
-# modules that are available to one-liners by default
-provided_modules = ('os', 're', 'sys',)
+# Modules that are available to one-liners by default.
+provided_modules = ['os', 're', 'sys']
 
 
 class defaultlist(list):
@@ -139,7 +139,7 @@ def parse_args(argv, fh_in):
             raise err('error: no expression or statement specified')
     except Exception as e:
         print(usage_short, file=stderr)
-        print('error: %s' % str(e), file=stderr)
+        print('error: %s' % e, file=stderr)
         sys.exit(1)
 
     return opts
@@ -164,7 +164,7 @@ def parse_modules_split(line):
         # sys,os.path.[join,exists] -> ['sys', 'os.path.[join,exists]']
         mods = []
 
-        # positions of matching '[.*]' pairs within line
+        # Positions of matching '[.*]' pairs within line
         # '0[23]5[78] -> [1,2,3,4,6,7,8,9]
         brackets = re.finditer(r'\[[^\]]*\]', line)
         brackets = [range(*m.span()) for m in brackets]
@@ -283,8 +283,8 @@ def main(argv=sys.argv[1:], fh_in=stdin, fh_out=stdout):
 def _main(expr, stmt, mods, opts, fh_in, fh_out):
     if opts.autoimports:
         from itertools import chain
-        for i in chain(expr, stmt):
-            if i: mods.extend(modules_in_code(i))
+        for i in (j for j in chain(expr, stmt) if j):
+            mods.extend(modules_in_code(i))
 
     mods.extend(provided_modules)
     ctx = parse_import_modules(mods)

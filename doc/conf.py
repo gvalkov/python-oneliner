@@ -1,24 +1,26 @@
 # -*- coding: utf-8 -*-
 
-import sys, os
-sys.path.insert(0, os.path.abspath('..'))
-from setup import kw
+import sys, os, re
+import alabaster
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-extensions = []
 templates_path = ['_templates']
 source_suffix = '.rst'
-#source_encoding = 'utf-8-sig'
-
+extensions = ['alabaster', 'sphinx.ext.autodoc', 'sphinx.ext.viewcode']
 master_doc = 'index'
 
 project = u'oneliner'
-copyright = u'2012-2013, Georgi Valkov'
+copyright = u'2012-2015, Georgi Valkov'
 
-release = kw['version']
+# read version from setup.py
+for line in open('../oneliner.py'):
+    m = re.search("__version__\s*=\s*'(.*)'", line)
+    if m:
+        release = m.group(1)
+        break
+
 version = release
-
 exclude_patterns = ['_build']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
@@ -40,12 +42,11 @@ pygments_style = 'sphinx'
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
-if not on_rtd:
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-else:
-    html_theme = 'default'
+html_theme_path = [alabaster.get_path()]
+html_theme = 'alabaster'
+html_sidebars = {
+   '**': []
+}
 
 #html_theme_options = {}
 #html_theme_path = []

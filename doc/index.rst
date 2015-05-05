@@ -1,23 +1,23 @@
-Introduction
-------------
+Python Oneliner
+---------------
 
-This module tries to improve Python's usefulness as a tool for writing
-shell one-liners.
+This module improves Python's usefulness as a tool for writing shell
+one-liners. A brief usage example:
 
 .. code-block:: bash
 
     # show line numbers
-    python -m oneliner -ne "%5d: %s" % (NR, _) < input
+    python -m oneliner -ne '"%5d: %s" % (NR, _)' < input.txt
 
     # convert unix timestamp to something more human readable
     date +%s | pyl -j ' => ' -line '_, datetime.datetime.fromtimestamp(int(_))'
     # 1355256353 => 2012-12-11 22:05:53
 
     # triple space a file
-    pyl -ne 'line + "\n"*2' < input
+    pyl -ne 'line + "\n"*2' < input.txt
 
     # double space only non-blank lines:
-    pyl -ne '_ if re.match("^$", _) else _+"\n"'
+    pyl -ne '_ if re.match("^$", _) else _+"\n"' input.txt
 
 Why?
 ----
@@ -44,19 +44,19 @@ following factors::
 2) No *syntax magic* and no *special variables*. Ruby and Perl provide
    a multitude of cryptic, yet useful variables such as::
 
-     $_  last input line
-     $.  current input line number
-     $~  the match object returned by the last successful pattern match
-     $&  the string matched by last successful pattern match
-     $3  the string matched by the 3rd group of the last successful pattern match
-     $*  sys.argv
-     $>  sys.stdout (default output file)
-     $<  sys.stdint (default input file)
-     $;  input field separator (default value to str.split())
-     $/  record separator (os.linesep)
-     $$  os.getpid()
+     $_   last input line
+     $.   current input line number
+     $~   the match object returned by the last successful pattern match
+     $&   the string matched by last successful pattern match
+     $3   the string matched by the 3rd group of the last successful pattern match
+     $*   sys.argv
+     $>   sys.stdout (default output file)
+     $<   sys.stdint (default input file)
+     $;   input field separator (default value to str.split())
+     $/   record separator (os.linesep)
+     $$   os.getpid()
 
-   See English.rb_ or English.pm_ for more information.
+   Please refer to English.rb_ and English.pm_ for more information.
 
 3) Lack of a flexible command line import mechanism. For example, Perl
    has the ``-M`` options::
@@ -70,7 +70,8 @@ following factors::
 
      python -m random -c "print(random.randint(10))"
 
-All these points add up to the verbosity of Python one-liners. For example:
+All these points add up to the verbosity of Python one-liners. The
+following example demonstrates this point:
 
 .. code-block:: bash
 
@@ -80,17 +81,17 @@ All these points add up to the verbosity of Python one-liners. For example:
     python -c 'import sys,datetime; [sys.stdout.write(datetime.datetime.strptime("%Y-%m-%d", i).strftime("%s") for i in sys.stdin]'
 
 But why would anyone want to write one-liners in Python, given these
-disadvantages and the available alternatives? I believe that when
-doing interactive work on the shell, the first solution that comes to
-mind is usually good enough. If that solution is a Python one, why not
-use it?
+shortcomings and the available alternatives? I believe that when doing
+interactive work on the shell, the first solution that comes to mind
+is usually good enough. If that solution is a Python one, why not use
+it?
 
 
-Oneliner
---------
+How?
+----
 
 Python comes with all the building blocks needed to implement a
-practical means of writing one-liners. This module tries to address
+practical method of writing one-liners. This module tries to address
 the issues outlined above. The command line interface is kept as close
 as that of Ruby and Perl as reasonable.
 
@@ -118,8 +119,8 @@ as that of Ruby and Perl as reasonable.
            sys.stdout.write(line)
            sys.stdout.write(os.linesep)
 
-2) Make the following list of *special variables* available in the
-   local namespace of each one-liner:
+2) Makes the following variables available in the local namespace of
+   each one-liner:
 
    * ``line``, ``L``, ``_``: The current input line. Unless the ``-l``
      switch is given, the line separatator will be a part of this
@@ -141,10 +142,10 @@ as that of Ruby and Perl as reasonable.
      corresponds to the current input file given on the command
      line. For example::
 
-       echo example | python -m oneliner -ne '"%s:%s\t %s" % (FN, NL, L)'
+       echo example | python -m oneliner -ne '"%s:%s\t %s" % (FN, NR, L)'
        => <stdin>:1     example
 
-       python -m oneliner -ne '"%s:%s\t %s" % (FN, NL, L)' example.txt
+       python -m oneliner -ne '"%s:%s\t %s" % (FN, NR, L)' example.txt
        => example1.txt:1     line 1
 
 3) Provide the ``-m`` and ``-M`` options and a mini-language for
@@ -164,22 +165,16 @@ as that of Ruby and Perl as reasonable.
 Installing
 ----------
 
-The latest stable version of *python-oneliner* is available on pypi,
-while the development version can be installed from github:
+The latest stable version of *python-oneliner* is available on pypi
+and may be installed with pip.
 
 .. code-block:: bash
 
     $ pip install oneliner  # latest stable version
-    $ pip install git+git://github.com/gvalkov/python-oneliner.git  # latest development version
 
-Alternatively, you can install it manually like any other python package:
+Alternatively, you may simply put the `oneline.py`_ file anywhere in
+your load path.
 
-.. code-block:: bash
-
-    $ git clone git@github.com:gvalkov/python-oneliner.git
-    $ cd python-oneliner
-    $ git reset --hard HEAD $versiontag
-    $ python setup.py install
 
 Todo
 ----
@@ -222,6 +217,7 @@ License
 .. _English.rb: https://github.com/ruby/ruby/blob/trunk/lib/English.rb
 .. _English.pm: http://cpansearch.perl.org/src/GBARR/perl5.005_03/lib/English.pm
 .. _random's:   http://hg.python.org/cpython/file/16b1fde2275c/Lib/random.py#l728
+.. _oneline.py: https://raw.githubusercontent.com/gvalkov/python-oneliner/master/oneliner.py
 .. _Pyp:        http://code.google.com/p/pyp/
 .. _Pyle:       https://github.com/aljungberg/pyle
 .. _Funcpy:     http://www.pixelbeat.org/scripts/funcpy

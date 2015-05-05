@@ -10,8 +10,8 @@ import argparse
 
 from sys import stderr, stdout, stdin
 
-
 __version__ = '0.2.0'
+
 
 usage_short = 'Usage: {} [-hvnpdijl] [-m mod] [-e expr] [-s stmt] <path> [<path> ...]'
 usage_short = usage_short.format('pyl' if 'pyl' in sys.argv[0] else 'python -m oneliner')
@@ -131,7 +131,7 @@ def parse_args(argv, fh_in):
         err = Exception
         if fh_in.closed and not opts.inputs:
             raise err('no input files or input on stdin')
-        if not fh_in.closed and opts.inputs:
+        if not fh_in.closed and not fh_in.isatty() and opts.inputs:
             raise err('multiple input sources (stdin and command line)')
         if opts.expr and opts.stmt:
             raise err('cannot use expression and statement oneliners at the same time')

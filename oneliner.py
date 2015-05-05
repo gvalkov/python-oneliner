@@ -129,9 +129,9 @@ def parse_args(argv, fh_in):
 
     try:
         err = Exception
-        if fh_in.isatty() and not opts.inputs:
+        if fh_in.closed and not opts.inputs:
             raise err('no input files or input on stdin')
-        if not fh_in.isatty() and opts.inputs:
+        if not fh_in.closed and opts.inputs:
             raise err('multiple input sources (stdin and command line)')
         if opts.expr and opts.stmt:
             raise err('cannot use expression and statement oneliners at the same time')
@@ -272,7 +272,7 @@ def modules_in_code(expr):
 def main(argv=sys.argv[1:], fh_in=stdin, fh_out=stdout):
     opts = parse_args(argv, fh_in=fh_in)
 
-    if fh_in.isatty() and opts.inputs:
+    if opts.inputs:
         from fileinput import FileInput
         fh_in = FileInput(i.name for i in opts.inputs)
 

@@ -22,39 +22,38 @@ one-liners. A brief usage example:
 Why?
 ----
 
-Python is a wonderful general purpose scripting language with a great
-breadth of excellent libraries. While the simplicity of its syntax is
-often cited as a major strong point, I believe that the negative
-attitude towards any kind of *syntax magic* has prevented Python from
-becoming a useful tool for writing shell one-liners. When stacked
-against the likes of Ruby and Perl, Python is ill-equipped to be a
-part of a shell pipeline. Writing one-liners is possible, but their
-verbosity makes them impractical. This can be attributed to the
+Python is a wonderful general purpose scripting language with a great breadth of
+excellent libraries. While the simplicity of its syntax is often cited as a
+major strong point, I believe that the negative attitude towards any kind of
+*syntax magic* has prevented Python from becoming a useful tool for writing
+shell one-liners. When stacked against the likes of Ruby and Perl, Python is
+ill-equipped to be a part of a shell pipeline. Writing one-liners is possible,
+but their verbosity makes them impractical. This may be attributed to the
 following factors::
 
 1) Lack of a *read-print-loop* command line option. Ruby and Perl
    provide the ``-n`` and ``-p`` switches that makes them assume the
    following loop around code::
 
-     for line in sys.stdin:
-         <code>
-         if '-p' in options:
-             sys.stdout.write(line)
+      for line in sys.stdin:
+          <code>
+          if '-p' in options:
+              sys.stdout.write(line)
 
 2) No *syntax magic* and no *special variables*. Ruby and Perl provide
    a multitude of cryptic, yet useful variables such as::
 
-     $_   last input line
-     $.   current input line number
-     $~   the match object returned by the last successful pattern match
-     $&   the string matched by last successful pattern match
-     $3   the string matched by the 3rd group of the last successful pattern match
-     $*   sys.argv
-     $>   sys.stdout (default output file)
-     $<   sys.stdint (default input file)
-     $;   input field separator (default value to str.split())
-     $/   record separator (os.linesep)
-     $$   os.getpid()
+      $_   last input line
+      $.   current input line number
+      $~   the match object returned by the last successful pattern match
+      $&   the string matched by last successful pattern match
+      $3   the string matched by the 3rd group of the last successful pattern match
+      $*   sys.argv
+      $>   sys.stdout (default output file)
+      $<   sys.stdint (default input file)
+      $;   input field separator (default value to str.split())
+      $/   record separator (os.linesep)
+      $$   os.getpid()
 
    Please refer to English.rb_ and English.pm_ for more information.
 
@@ -64,14 +63,15 @@ following factors::
      perl -MDigest::MD5=md5_hex  => from Digest::MD5 import md5_hex
      perl -MDigest::MD5          => import Digest::MD5
 
-   While CPython interpreter has the ``-m`` switch, it is not suitable
-   for the task at hand. For example, the following one-liner will run
-   `random's`_ test suite, instead of printing a random number::
+   While the CPython interpreter has the ``-m`` switch, it is not
+   suitable for the task at hand. For example, the following one-liner
+   will run `random's`_ test suite, instead of printing a random
+   number::
 
      python -m random -c "print(random.randint(10))"
 
 All these points add up to the verbosity of Python one-liners. The
-following example demonstrates this point:
+following example demonstrates this:
 
 .. code-block:: bash
 
@@ -90,10 +90,10 @@ it?
 How?
 ----
 
-Python comes with all the building blocks needed to implement a
-practical method of writing one-liners. This module tries to address
-the issues outlined above. The command line interface is kept as close
-as that of Ruby and Perl as reasonable.
+Python comes with all the building blocks for implementing a practical
+method of writing one-liners. This module tries to address the issues
+outlined above. The command line interface is kept as close as that of
+Ruby and Perl as reasonable.
 
 1) To help with the processing of input and output, *oneliner*
    provides the the ``-n``, ``-p`` and ``-l`` command line switches.
@@ -149,8 +149,7 @@ as that of Ruby and Perl as reasonable.
        => example1.txt:1     line 1
 
 3) Provide the ``-m`` and ``-M`` options and a mini-language for
-   specifying imports. This is best illustrated by the following
-   examples::
+   specifying imports. This is best illustrated by an example::
 
     -m os,sys,re,pickle       => import os, sys, re, pickle
     -m os -m sys -m re        => import os, sys, re
@@ -196,7 +195,6 @@ Todo
 
 * Add more examples.
 
-* Tests.
 
 Similar Projects
 ----------------
@@ -207,6 +205,7 @@ Similar Projects
 
 * Funcpy_
 
+* Red_
 
 License
 -------
@@ -221,4 +220,5 @@ License
 .. _Pyp:        http://code.google.com/p/pyp/
 .. _Pyle:       https://github.com/aljungberg/pyle
 .. _Funcpy:     http://www.pixelbeat.org/scripts/funcpy
+.. _Red:        https://bitbucket.org/johannestaas/red
 .. _`Revised BSD License`: https://raw.github.com/gvalkov/python-oneliner/master/LICENSE

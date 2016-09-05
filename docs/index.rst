@@ -207,6 +207,8 @@ Similar Projects
 
 * Red_
 
+* Pyfil_
+
 License
 -------
 
@@ -221,4 +223,5 @@ License
 .. _Pyle:       https://github.com/aljungberg/pyle
 .. _Funcpy:     http://www.pixelbeat.org/scripts/funcpy
 .. _Red:        https://bitbucket.org/johannestaas/red
+.. _Pyfil:      https://github.com/ninjaaron/pyfil
 .. _`Revised BSD License`: https://raw.github.com/gvalkov/python-oneliner/master/LICENSE

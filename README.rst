@@ -20,7 +20,7 @@ shell one-liners.
     pyl -ne '_ if re.match("^$", _) else _+"\n"' input.txt
 
 Documentation:
-    http://python-oneliner.readthedocs.org/en/latest/
+    http://python-oneliner.readthedocs.io/en/latest/
 
 Development:
     https://github.com/gvalkov/python-oneliner

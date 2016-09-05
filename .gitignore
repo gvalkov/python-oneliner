@@ -1,3 +1,4 @@
+.cache
 *.py[cod]
 __pycache__/
 docs/_build/

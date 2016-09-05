@@ -3,23 +3,15 @@
 import sys, os, re
 import alabaster
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
 templates_path = ['_templates']
 source_suffix = '.rst'
 extensions = ['alabaster', 'sphinx.ext.autodoc', 'sphinx.ext.viewcode']
 master_doc = 'index'
 
 project = u'oneliner'
-copyright = u'2012-2015, Georgi Valkov'
+copyright = u'2012-2016, Georgi Valkov'
 
-# read version from setup.py
-for line in open('../oneliner.py'):
-    m = re.search("__version__\s*=\s*'(.*)'", line)
-    if m:
-        release = m.group(1)
-        break
-
+release = '0.2.1'
 version = release
 exclude_patterns = ['_build']
 

@@ -7,7 +7,7 @@ name = "oneliner"
 version = "0.3.0"
 description = "practical python one-liners"
 keywords = ["oneliner", "one-liner"]
-readme = "README.rst"
+readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.6"
 authors = [{ name = "Georgi Valkov", email = "georgi.t.valkov@gmail.com" }]

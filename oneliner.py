@@ -7,7 +7,7 @@ import argparse
 
 from sys import stderr, stdout, stdin
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 
 usage_short = "Usage: {} [-hvnpdijl] [-m mod] [-e expr] [-s stmt] <path> [<path> ...]"

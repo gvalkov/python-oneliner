@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "oneliner"
-version = "0.3.0"
+version = "0.3.1"
 description = "practical python one-liners"
 keywords = ["oneliner", "one-liner"]
 readme = "README.md"
@@ -33,7 +33,7 @@ classifiers = [
 line-length = 120
 
 [tool.bumpversion]
-current_version = "0.3.0"
+current_version = "0.3.1"
 commit = true
 tag = true
 allow_dirty = true

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oneliner"
+description = "practical python one-liners"
+keywords = ["oneliner", "one-liner"]
+readme = "README.rst"
+license = { file = "LICENSE" }
+requires-python = ">=3.6"
+authors = [{ name = "Georgi Valkov", email = "georgi.t.valkov@gmail.com" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX :: Linux",
+]
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/gvalkov/python-oneliner"
+
+[project.scripts]
+"pyl" = "oneliner:main"
+
+[tool.setuptools_scm]
+
+[tool.ruff]
+line-length = 120
